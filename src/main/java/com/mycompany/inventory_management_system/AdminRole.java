@@ -37,7 +37,7 @@ public class AdminRole {
         return database.records.toArray(new EmployeeUser[records.size()]);
     }
     public void logout(){
-        System.out.println("Saving...");
+        System.out.println("Logging out. Saving...");
         database.saveToFile();
     }
 }
