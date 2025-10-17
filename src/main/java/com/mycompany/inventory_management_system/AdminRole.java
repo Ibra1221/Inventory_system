@@ -4,6 +4,8 @@
  */
 package com.mycompany.inventory_management_system;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Ibrahim
@@ -30,7 +32,8 @@ public class AdminRole {
     
     public EmployeeUser[] getListOfEmployees(){
         System.out.println("Fetching the list of Employees...");
-        return database.records.toArray();
+        ArrayList<EmployeeUser> records = database.returnAllRecords();
+        return database.records.toArray(new EmployeeUser[records.size()]);
     }
     public void logout(){
         System.out.println("Saving...");
