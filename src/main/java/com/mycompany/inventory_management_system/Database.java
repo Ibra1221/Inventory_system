@@ -99,9 +99,9 @@ public abstract class Database<D extends Info> {
             for (int i = 0; i < records.size(); i++) {
                 pw.println(recordToLine(records.get(i)));
             }
-            System.out.println("💾Successfully saved records to file: " + filename);
+            System.out.println("Successfully saved records to file: " + filename);
         } catch (IOException e) {
-            System.out.println("❌Failed to save records to file: " + filename);
+            System.out.println("Failed to save records to file: " + filename);
             System.out.println(e);
         }
     }
