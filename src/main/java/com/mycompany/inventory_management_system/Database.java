@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.inventory_management_system;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;

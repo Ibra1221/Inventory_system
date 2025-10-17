@@ -36,10 +36,10 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
     public void insertRecord(CustomerProduct record) {
         if (!contains(record.getSearchKey())) {
             records.add(record);
-            System.out.println("CustomerProduct ID ID inserted Succeesfully");
+            System.out.println("CustomerProduct inserted Succeesfully");
 
         } else {
-            System.out.println("CustomerProduct ID " + record.getSearchKey() + " already exists in the database");
+            System.out.println("CustomerProduct " + record.getSearchKey() + " already exists in the database");
         }
     }
 }
