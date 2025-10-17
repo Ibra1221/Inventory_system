@@ -26,11 +26,7 @@ public abstract class Database<D extends Info> {
     }
 
     protected abstract D createRecordFrom(String line);
-
-    protected String getKey(D record) {
-        return record.getSearchKey();
-    }
-
+    
     public void readFromFile() {
         records.clear();
         try (Scanner scanner = new Scanner(new File(filename))) {
@@ -49,7 +45,7 @@ public abstract class Database<D extends Info> {
 
     public boolean contains(String key) {
         for (int i = 0; i < records.size(); i++) {
-            if (getKey(records.get(i)).equals(key)) {
+            if ((records.get(i).getSearchKey()).equals(key)) {
                 return true;
             }
         }
@@ -58,7 +54,7 @@ public abstract class Database<D extends Info> {
 
     public D getRecord(String key) {
         for (int i = 0; i < records.size(); i++) {
-            if (getKey(records.get(i)).equals(key)) {
+            if ((records.get(i).getSearchKey()).equals(key)) {
                 System.out.println("✅Record found for key: " + key);
                 return records.get(i);
             }
@@ -76,7 +72,7 @@ public abstract class Database<D extends Info> {
     public void deleteRecord(String key) {
         boolean deleted = false;
         for (int i = 0; i < records.size(); i++) {
-            if (getKey(records.get(i)).equals(key)) {
+            if ((records.get(i).getSearchKey()).equals(key)) {
                 records.remove(i);
                 deleted = true;
                 i--;
