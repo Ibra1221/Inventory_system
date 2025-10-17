@@ -26,4 +26,12 @@ public class ProductDatabase extends Database<Product> {
             return null;
         }
     }
+    @Override
+    public void insertRecord(Product record) {
+        if (!contains(record.getSearchKey())) {
+            records.add(record);
+        } else {
+            System.out.println("Product ID " + record.getSearchKey() + " already exists in the database");
+        }
+    }
 }

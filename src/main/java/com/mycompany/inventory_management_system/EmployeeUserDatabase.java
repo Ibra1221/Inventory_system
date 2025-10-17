@@ -18,10 +18,19 @@ public class EmployeeUserDatabase extends Database<EmployeeUser> {
     protected EmployeeUser createRecordFrom(String line) {
         String[] parts = line.split(",");
         if (parts.length == 5) {
-            return new EmployeeUser(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim());
+            return new EmployeeUser(parts[0].trim(), parts[1].trim(), parts[2].trim(),parts[3].trim(),parts[4].trim());
         } else {
             System.out.println("Invalid format for: " + line);
             return null;
+        }
+    }
+
+    @Override
+    public void insertRecord(EmployeeUser record) {
+        if (!contains(record.getSearchKey())) {
+            records.add(record);
+        } else {
+            System.out.println("Emoplyee ID " + record.getSearchKey() + " already exists in the database");
         }
     }
 }

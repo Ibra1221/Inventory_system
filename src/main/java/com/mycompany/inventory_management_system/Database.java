@@ -41,7 +41,9 @@ public abstract class Database<D extends Info> {
                     records.add(createRecordFrom(line));
                 }
             }
+            System.out.println("✅Successfully read records from file: " + filename);
         } catch (Exception e) {
+            System.out.println("❌Failed to read from file: " + filename);
             System.out.println(e);
         }
     }
@@ -58,9 +60,11 @@ public abstract class Database<D extends Info> {
     public D getRecord(String key) {
         for (int i = 0; i < records.size(); i++) {
             if (getKey(records.get(i)).equals(key)) {
+                System.out.println("✅Record found for key: " + key);
                 return records.get(i);
             }
         }
+        System.out.println("Record not found for key: " + key);
         return null;
     }
 
@@ -68,19 +72,21 @@ public abstract class Database<D extends Info> {
         return records;
     }
 
- public void insertRecord(D record) {
-        if (!contains(record.getSearchKey())) {
-            records.add(record);
-        } else {
-            System.out.println("ID " + record.getSearchKey() + " already exists in the database!");
-        }}
+    public abstract void insertRecord(D record);
 
     public void deleteRecord(String key) {
+        boolean deleted = false;
         for (int i = 0; i < records.size(); i++) {
             if (getKey(records.get(i)).equals(key)) {
                 records.remove(i);
+                deleted = true;
                 i--;
             }
+        }
+        if (deleted) {
+            System.out.println("Successfully deleted record with key: " + key);
+        } else {
+            System.out.println("No record found to delete with key: " + key);
         }
     }
 
@@ -93,7 +99,9 @@ public abstract class Database<D extends Info> {
             for (int i = 0; i < records.size(); i++) {
                 pw.println(recordToLine(records.get(i)));
             }
+            System.out.println("💾Successfully saved records to file: " + filename);
         } catch (IOException e) {
+            System.out.println("❌Failed to save records to file: " + filename);
             System.out.println(e);
         }
     }
