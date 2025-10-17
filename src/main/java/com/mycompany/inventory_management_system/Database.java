@@ -68,9 +68,12 @@ public abstract class Database<D extends Info> {
         return records;
     }
 
-    public void insertRecord(D record) {
-        records.add(record);
-    }
+ public void insertRecord(D record) {
+        if (!contains(record.getSearchKey())) {
+            records.add(record);
+        } else {
+            System.out.println("ID " + record.getSearchKey() + " already exists in the database!");
+        }}
 
     public void deleteRecord(String key) {
         for (int i = 0; i < records.size(); i++) {
