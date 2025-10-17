@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.inventory_management_system;
+
 import java.time.LocalDate;
+
 /**
  *
  * @author pola-nasser13
@@ -29,10 +31,13 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
             return null;
         }
     }
+
     @Override
     public void insertRecord(CustomerProduct record) {
         if (!contains(record.getSearchKey())) {
             records.add(record);
+            System.out.println("CustomerProduct ID ID inserted Succeesfully");
+
         } else {
             System.out.println("CustomerProduct ID " + record.getSearchKey() + " already exists in the database");
         }

@@ -29,6 +29,7 @@ public class EmployeeUserDatabase extends Database<EmployeeUser> {
     public void insertRecord(EmployeeUser record) {
         if (!contains(record.getSearchKey())) {
             records.add(record);
+            System.out.println("Emoplyee ID inserted Succeesfully");
         } else {
             System.out.println("Emoplyee ID " + record.getSearchKey() + " already exists in the database");
         }
