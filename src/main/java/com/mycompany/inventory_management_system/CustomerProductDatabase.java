@@ -17,7 +17,7 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
     }
 
     @Override
-    protected CustomerProduct createRecordFrom(String line) {
+    public CustomerProduct createRecordFrom(String line) {
         String[] parts = line.split(",");
         if (parts.length >= 3) {
             LocalDate date = LocalDate.parse(parts[2].trim()); // (YYYY-MM-DD)
