@@ -22,7 +22,7 @@ public class AdminRole {
     public void addEmployee(String employeeId, String name, String email, String address, String phoneNumber) {
         EmployeeUser employeeUser = new EmployeeUser(employeeId, name, email, address, phoneNumber);
         System.out.println("Adding Employee to the database...");
-        database.insertRecord(newUser);
+        database.insertRecord(employeeUser);
         
     }
     
@@ -34,7 +34,7 @@ public class AdminRole {
     public EmployeeUser[] getListOfEmployees(){
         System.out.println("Fetching the list of Employees...");
         ArrayList<EmployeeUser> records = database.returnAllRecords();
-        return database.records.toArray(new EmployeeUser[records.size()]);
+        return records.toArray(new EmployeeUser[records.size()]);
     }
     public void logout(){
         System.out.println("Logging out. Saving...");

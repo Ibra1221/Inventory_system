@@ -49,7 +49,7 @@ public class EmployeeRole {
                 return false;
             }
             else{
-                System.out.println("Successfully purchased " + product.name +"!");
+                System.out.println("Successfully purchased " + product.getProductName() +"!");
                 product.setQuantity(product.getQuantity() - 1);
                 CustomerProduct record = new CustomerProduct(customerSSN,productID, purchaseDate);
                 System.out.println("Adding the purchase to the database...");
@@ -81,7 +81,8 @@ public class EmployeeRole {
                     }
                     else {
                         product.setQuantity(product.getQuantity() + 1);
-                        customerProductDatabase.deleteRecord(productID);
+                        String recordKey = customerSSN + "," + productID + ',' + purchaseDate.toString();
+                        customerProductDatabase.deleteRecord(recordKey);
                         customerProductDatabase.saveToFile();
                         productsDatabase.saveToFile();
                         System.out.println("Return successful!");
@@ -101,14 +102,19 @@ public class EmployeeRole {
         }
     }
     public boolean applyPayment(String customerSSN, String productID, LocalDate purchaseDate){
-        CustomerProduct cProduct = customerProductDatabase.getRecord(productID);
+        String recordKey = customerSSN + "," + productID + ',' + purchaseDate.toString();
+        CustomerProduct cProduct = customerProductDatabase.getRecord(recordKey);
         if(cProduct != null){
-            if (cProduct.paid != true){
-                cProduct.paid = true;
+            if (!cProduct.isPaid()){
+                cProduct.setPaid(true);
                 System.out.println("Transaction successful!");
                 System.out.println("Saving...");
                 customerProductDatabase.saveToFile();
                 return true;
+            }
+            else {
+                System.out.println("Product already paid for");
+                return false;
             }
         }
         else {
