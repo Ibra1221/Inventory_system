@@ -17,14 +17,17 @@ public class EmployeeRole {
     private CustomerProductDatabase customerProductDatabase;
 
     public EmployeeRole() {
-        productsDatabase = new ProductsDatabase("Products.txt");
+        productsDatabase = new ProductDatabase("Products.txt");
         customerProductDatabase = new CustomerProductDatabase("CustomersProducts.txt");
+        productsDatabase.readFromFile();
+        customerProductDatabase.readFromFile();
     }
 
-    public void addProduct(String productID, String productName, String manufacturerName, String supplierName, int quantity) {
-        Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity);
+    public void addProduct(String productID, String productName, String manufacturerName, String supplierName, int quantity, float price) {
+        Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity, price);
         System.out.println("Adding Product...");
         productsDatabase.insertRecord(newProduct);
+        productsDatabase.saveToFile();
     }
 
     public Product[] getListOfProducts(){
@@ -41,16 +44,18 @@ public class EmployeeRole {
     public boolean purchaseProduct(String customerSSN, String productID, LocalDate purchaseDate){
         Product product = productsDatabase.getRecord(productID);
         if(product != null){
-            if(product.quantity == 0){
+            if(product.getQuantity() == 0){
                 System.out.println("Product out of stock");
                 return false;
             }
             else{
                 System.out.println("Successfully purchased " + product.name +"!");
-                product.quantity--;
+                product.setQuantity(product.getQuantity() - 1);
                 CustomerProduct record = new CustomerProduct(customerSSN,productID, purchaseDate);
                 System.out.println("Adding the purchase to the database...");
                 customerProductDatabase.insertRecord(record);
+                productsDatabase.saveToFile();
+                customerProductDatabase.saveToFile();
                 return true;
             }
         }
@@ -60,23 +65,27 @@ public class EmployeeRole {
         }
     }
     public double returnProduct(String customerSSN, String productID, LocalDate purchaseDate ,LocalDate returnDate){
-        if(returnDate.compareTo(purchaseDate) > 0){
+        if(returnDate.isBefore(purchaseDate)){
             return -1;
         }
         else {
             Product product = productsDatabase.getRecord(productID);
             if(product != null){
-                CustomerProduct cProduct = customerProductDatabase.getRecord(productID);
+                String key = customerSSN + "," + productID + ',' + purchaseDate.toString();
+                CustomerProduct cProduct = customerProductDatabase.getRecord(key);
                 if (cProduct != null){
-                    if(returnDate.compareTo(purchaseDate) < -14){
+                    long daysBetween = java.time.temporal.ChronoUnit.DAYS.between(purchaseDate, returnDate);
+                    if(daysBetween > 14){
                         System.out.println("Non-refundable. More than 14 days have passed.");
                         return -1;
                     }
                     else {
-                        product.quantity++;
+                        product.setQuantity(product.getQuantity() + 1);
                         customerProductDatabase.deleteRecord(productID);
                         customerProductDatabase.saveToFile();
-                        return product.price;
+                        productsDatabase.saveToFile();
+                        System.out.println("Return successful!");
+                        return product.getPrice();
                     }
                 }
                 else {
@@ -104,6 +113,7 @@ public class EmployeeRole {
         }
         else {
             System.out.println("Product not in purchase history");
+            return false;
         }
     }
     public void logout(){

@@ -20,7 +20,7 @@ public class AdminRole {
     }
 
     public void addEmployee(String employeeId, String name, String email, String address, String phoneNumber) {
-        EmployeeUser newUser = new EmployeeUser(employeeId, name, email, address, phoneNumber);
+        EmployeeUser employeeUser = new EmployeeUser(employeeId, name, email, address, phoneNumber);
         System.out.println("Adding Employee to the database...");
         database.insertRecord(newUser);
         
