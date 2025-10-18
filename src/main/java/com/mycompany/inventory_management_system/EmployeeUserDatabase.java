@@ -18,7 +18,7 @@ public class EmployeeUserDatabase extends Database<EmployeeUser> {
     public EmployeeUser createRecordFrom(String line) {
         String[] parts = line.split(",");
         if (parts.length == 5) {
-            return new EmployeeUser(parts[0].trim(), parts[1].trim(), parts[2].trim(),parts[3].trim(),parts[4].trim());
+            return new EmployeeUser(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim());
         } else {
             System.out.println("Invalid format for: " + line);
             return null;
@@ -28,10 +28,10 @@ public class EmployeeUserDatabase extends Database<EmployeeUser> {
     @Override
     public void insertRecord(EmployeeUser record) {
         if (!contains(record.getSearchKey())) {
-            records.add(record);
-            System.out.println("Emoplyee ID inserted Succeesfully");
+            getRecords().add(record);
+            System.out.println("Employee ID inserted successfully");
         } else {
-            System.out.println("Emoplyee ID " + record.getSearchKey() + " already exists in the database");
+            System.out.println("Employee ID " + record.getSearchKey() + " already exists in the database");
         }
     }
 }

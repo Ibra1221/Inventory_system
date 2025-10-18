@@ -30,9 +30,8 @@ public class ProductDatabase extends Database<Product> {
     @Override
     public void insertRecord(Product record) {
         if (!contains(record.getSearchKey())) {
-            records.add(record);
-            System.out.println("Product ID inserted Succeesfully");
-
+            getRecords().add(record);
+            System.out.println("Product ID inserted successfully");
         } else {
             System.out.println("Product ID " + record.getSearchKey() + " already exists in the database");
         }

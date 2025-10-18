@@ -10,6 +10,7 @@ import java.time.LocalDate;
  *
  * @author pola-nasser13
  */
+
 public class CustomerProductDatabase extends Database<CustomerProduct> {
 
     public CustomerProductDatabase(String filename) {
@@ -20,7 +21,7 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
     public CustomerProduct createRecordFrom(String line) {
         String[] parts = line.split(",");
         if (parts.length >= 3) {
-            LocalDate date = LocalDate.parse(parts[2].trim()); // (YYYY-MM-DD)
+            LocalDate date = LocalDate.parse(parts[2].trim());
             CustomerProduct cp = new CustomerProduct(parts[0].trim(), parts[1].trim(), date);
             if (parts.length == 4) {
                 cp.setPaid(Boolean.parseBoolean(parts[3].trim()));
@@ -35,9 +36,8 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
     @Override
     public void insertRecord(CustomerProduct record) {
         if (!contains(record.getSearchKey())) {
-            records.add(record);
-            System.out.println("CustomerProduct inserted Succeesfully");
-
+            getRecords().add(record);
+            System.out.println("CustomerProduct inserted successfully");
         } else {
             System.out.println("CustomerProduct " + record.getSearchKey() + " already exists in the database");
         }

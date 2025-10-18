@@ -18,16 +18,40 @@ import java.io.IOException;
  */
 public abstract class Database<D extends Info> {
 
-    protected ArrayList<D> records;
-    protected String filename;
+    private ArrayList<D> records;
+    private String filename;
 
     public Database(String filename) {
         this.filename = filename;
         this.records = new ArrayList<D>();
     }
 
+<<<<<<< HEAD
+    public abstract D createRecordFrom(String line);
+=======
+    protected ArrayList<D> getRecords() {
+        return records;
+    }
+
+    protected void setRecords(ArrayList<D> records) {
+        this.records = records;
+    }
+
+    protected String getFilename() {
+        return filename;
+    }
+
+    protected void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+>>>>>>> f0ea747 (getters and setters)
+    
+    
     public abstract D createRecordFrom(String line);
     
+    
+
     public void readFromFile() {
         records.clear();
         try (Scanner scanner = new Scanner(new File(filename))) {
@@ -102,3 +126,4 @@ public abstract class Database<D extends Info> {
         }
     }
 }
+
