@@ -26,7 +26,7 @@ public abstract class Database<D extends Info> {
         this.records = new ArrayList<D>();
     }
 
-    protected abstract D createRecordFrom(String line);
+    public abstract D createRecordFrom(String line);
     
     public void readFromFile() {
         records.clear();
