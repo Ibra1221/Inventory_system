@@ -15,7 +15,7 @@ public class ProductDatabase extends Database<Product> {
     }
 
     @Override
-    protected Product createRecordFrom(String line) {
+    public Product createRecordFrom(String line) {
         String[] parts = line.split(",");
         if (parts.length == 6) {
             int quantity = Integer.parseInt(parts[4].trim());
