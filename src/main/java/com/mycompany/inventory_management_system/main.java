@@ -88,8 +88,9 @@ public class main {
                 
                 
             case 4:
-              
+                System.exit(0);
 }
+
 
 
 
