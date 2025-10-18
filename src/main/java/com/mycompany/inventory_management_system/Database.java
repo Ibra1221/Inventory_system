@@ -37,9 +37,9 @@ public abstract class Database<D extends Info> {
                     records.add(createRecordFrom(line));
                 }
             }
-            System.out.println("✅Successfully read records from file: " + filename);
+            System.out.println("Successfully read records from file: " + filename);
         } catch (Exception e) {
-            System.out.println("❌Failed to read from file: " + filename);
+            System.out.println("Failed to read from file: " + filename);
             System.out.println(e);
         }
     }
@@ -56,7 +56,7 @@ public abstract class Database<D extends Info> {
     public D getRecord(String key) {
         for (int i = 0; i < records.size(); i++) {
             if ((records.get(i).getSearchKey()).equals(key)) {
-                System.out.println("✅Record found for key: " + key);
+                System.out.println("Record found for key: " + key);
                 return records.get(i);
             }
         }
