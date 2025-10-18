@@ -88,6 +88,8 @@ public class main {
                 
                 
             case 4:
+                System.out.println("Exiting system...");
+                scan.close();
                 System.exit(0);
 }
 
@@ -95,3 +97,4 @@ public class main {
 
 
     }
+
