@@ -26,9 +26,6 @@ public abstract class Database<D extends Info> {
         this.records = new ArrayList<D>();
     }
 
-<<<<<<< HEAD
-    public abstract D createRecordFrom(String line);
-=======
     protected ArrayList<D> getRecords() {
         return records;
     }
@@ -45,12 +42,7 @@ public abstract class Database<D extends Info> {
         this.filename = filename;
     }
 
->>>>>>> f0ea747 (getters and setters)
-    
-    
     public abstract D createRecordFrom(String line);
-    
-    
 
     public void readFromFile() {
         records.clear();
@@ -126,4 +118,3 @@ public abstract class Database<D extends Info> {
         }
     }
 }
-
