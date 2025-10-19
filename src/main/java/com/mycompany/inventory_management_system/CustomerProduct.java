@@ -86,10 +86,7 @@ public class CustomerProduct implements Info {
          else if(purchaseDate.isAfter(LocalDate.now())){
             System.out.println("Error: Purchase date cannot be in future.");
             return;}
-        else if(purchaseDate.isBefore(LocalDate.of(2000, 1, 1))){
-            System.out.println("Warning: Purchase date seems too old.set to default date(01-01-2000)");
-            return;
-        }
+        
         else{
             this.purchaseDate=purchaseDate;
         }
