@@ -28,24 +28,82 @@ public class EmployeeUser implements Info {
 
     // Setters
     public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+        try{
+            int id = Integer.parseInt(employeeId);
+            if (id <= 0)
+                System.out.println("Employee ID must be positive.");
+            else
+                this.employeeId = employeeId;
+        } catch(NumberFormatException e){
+            System.out.println("Warning: Employee ID must be a number.");
+        }
     }
 
     public void setName(String Name) {
-        this.Name = Name;
+        boolean hasNumber = false;
+        for(int i = 0; i < Name.length(); i++){
+            if(Character.isDigit(Name.charAt(i))) {
+                hasNumber = true;
+                break;
+            }
+        }
+
+        if (Name.equals(""))
+            System.out.println("Name cannot be empty.");
+        else if (hasNumber)
+            System.out.println("Name cannot have numbers.");
+        else
+            this.Name = Name;
+        
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        if(Email == null || !Email.contains("@")) {
+        System.out.println("Invalid email.");
+        return;
+    }
+
+    int atIndex = Email.indexOf("@");
+    
+    if(atIndex == 0){
+        System.out.println("Invalid email: nothing before '@'.");
+        return;
+    }
+
+    String afterAt = Email.substring(atIndex + 1);
+    if(!afterAt.contains(".")){
+        System.out.println("Invalid email: must contain a dot after '@'.");
+        return;
+    }
+
+    this.Email = Email;
     }
 
     public void setAddress(String Address) {
-        this.Address = Address;
+        if(Address.equals(""))
+            System.out.println("Address cannot be empty.");
+        else
+            this.Address = Address;
+       
     }
 
     public void setPhoneNumber(String PhoneNumber) {
-        this.PhoneNumber = PhoneNumber;
+        boolean allDigits = true;
+        int i;
+        for(i = 0; i < PhoneNumber.length(); i++)
+            if (!Character.isDigit(PhoneNumber.charAt(i))){
+                allDigits = false;
+                break;
+            }
+       
+
+        if(!allDigits)
+            System.out.println("Phone number must have only digits.");
+        else
+            this.PhoneNumber = PhoneNumber;
+       
     }
+    
 
     // Getters
     public String getEmployeeId() {
@@ -79,4 +137,3 @@ public class EmployeeUser implements Info {
         return this.employeeId;
     }
 }
-
