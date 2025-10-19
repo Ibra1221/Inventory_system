@@ -42,12 +42,18 @@ public class EmployeeRole {
     public Product[] getListOfProducts(){
         System.out.println("Fetching the list of Products...");
         ArrayList<Product> records = productsDatabase.returnAllRecords();
+        if(records.size() == 0){
+        System.out.println("Database is empty");
+                }
         return records.toArray(new Product[records.size()]);
     }
 
     public CustomerProduct[] getListOfPurchasingOperations(){
         System.out.println("Fetching history of purchasing operations...");
         ArrayList<CustomerProduct> records = customerProductDatabase.returnAllRecords();
+        if(records.size() == 0){
+        System.out.println("Database is empty");
+                }
         return records.toArray(new CustomerProduct[records.size()]);
     }
     public boolean purchaseProduct(String customerSSN, String productID, LocalDate purchaseDate){
@@ -58,9 +64,9 @@ public class EmployeeRole {
                 return false;
             }
             else{
+                CustomerProduct record = new CustomerProduct(customerSSN,productID, purchaseDate);
                 System.out.println("Successfully purchased " + product.getProductName() +"!");
                 product.setQuantity(product.getQuantity() - 1);
-                CustomerProduct record = new CustomerProduct(customerSSN,productID, purchaseDate);
                 System.out.println("Adding the purchase to the database...");
                 customerProductDatabase.insertRecord(record);
                 productsDatabase.saveToFile();

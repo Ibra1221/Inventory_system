@@ -99,7 +99,7 @@ public class Product implements Info {
             System.out.println("Invalid SupplierName");
         }
         else{
-            this.supplierName=supplierName;
+            this.supplierName=SupplierName;
         }
     }
     

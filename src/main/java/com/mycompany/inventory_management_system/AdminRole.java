@@ -36,6 +36,9 @@ public class AdminRole {
     public EmployeeUser[] getListOfEmployees(){
         System.out.println("Fetching the list of Employees...");
         ArrayList<EmployeeUser> records = database.returnAllRecords();
+        if(records.size() == 0){
+        System.out.println("Database is empty");
+                }
         return records.toArray(new EmployeeUser[records.size()]);
     }
     public void logout(){

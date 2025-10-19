@@ -5,7 +5,7 @@
 package com.mycompany.inventory_management_system;
 
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author pola-nasser13
@@ -20,9 +20,10 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
     @Override
     public CustomerProduct createRecordFrom(String line) {
         String[] parts = line.split(",");
-        if (parts.length >= 3) {
+        if (parts.length >= 3) { 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate date = LocalDate.parse(parts[2].trim());
-            CustomerProduct cp = new CustomerProduct(parts[0].trim(), parts[1].trim(), date);
+            CustomerProduct cp = new CustomerProduct(parts[0].trim(), parts[1].trim(), date.format());
             if (parts.length == 4) {
                 cp.setPaid(Boolean.parseBoolean(parts[3].trim()));
             }
