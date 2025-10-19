@@ -23,12 +23,21 @@ public class EmployeeRole {
         customerProductDatabase.readFromFile();
     }
 
+    public void addProduct(String productID, String productName, String manufacturerName, String supplierName, int quantity) {
+        final float PRICE = 100.00f;
+        Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity, PRICE);
+        System.out.println("Adding Product...");
+        productsDatabase.insertRecord(newProduct);
+        productsDatabase.saveToFile();
+    }
+    
     public void addProduct(String productID, String productName, String manufacturerName, String supplierName, int quantity, float price) {
         Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity, price);
         System.out.println("Adding Product...");
         productsDatabase.insertRecord(newProduct);
         productsDatabase.saveToFile();
     }
+    
 
     public Product[] getListOfProducts(){
         System.out.println("Fetching the list of Products...");
