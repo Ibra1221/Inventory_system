@@ -4,12 +4,14 @@
  */
 package com.mycompany.inventory_management_system;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 /**
  *
  * @author pola-nasser13
  */
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class CustomerProductDatabase extends Database<CustomerProduct> {
 
@@ -22,8 +24,15 @@ public class CustomerProductDatabase extends Database<CustomerProduct> {
         String[] parts = line.split(",");
         if (parts.length >= 3) { 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate date = LocalDate.parse(parts[2].trim());
-            CustomerProduct cp = new CustomerProduct(parts[0].trim(), parts[1].trim(), date.format());
+                LocalDate date = LocalDate.parse(parts[2].trim(), formatter);
+                String formattedDate = date.format(formatter);
+
+                CustomerProduct cp = new CustomerProduct(
+                    parts[0].trim(),     
+                    parts[1].trim(),      
+                    date         
+                );
+            
             if (parts.length == 4) {
                 cp.setPaid(Boolean.parseBoolean(parts[3].trim()));
             }

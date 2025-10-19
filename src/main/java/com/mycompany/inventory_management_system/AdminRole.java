@@ -25,12 +25,14 @@ public class AdminRole {
         EmployeeUser employeeUser = new EmployeeUser(employeeId, name, email, address, phoneNumber);
         System.out.println("Adding Employee to the database...");
         database.insertRecord(employeeUser);
+        database.saveToFile();
         
     }
     
     public void removeEmployee(String key){
         System.out.println("Removing Employee from the database...");
         database.deleteRecord(key);
+        database.saveToFile();
     }
     
     public EmployeeUser[] getListOfEmployees(){

@@ -5,6 +5,7 @@
 package com.mycompany.inventory_management_system;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -29,7 +30,6 @@ public class Inventory_management_system {
 
     public static String validateEmail(Scanner scan) {
         String email;
-        System.out.println("Enter employee email:");
         boolean validEmail = false;
         do {
             System.out.print("Enter employee email: ");
@@ -51,7 +51,6 @@ public class Inventory_management_system {
 
     public static String validateName(Scanner scan) {
         String name;
-        System.out.println("Enter employee name:");
         boolean validName = false;
         do {
             System.out.print("Enter employee name: ");
@@ -77,7 +76,6 @@ public class Inventory_management_system {
 
     public static String validateAddress(Scanner scan) {
         String address;
-        System.out.println("Enter employee address:");
         do {
             System.out.print("Enter employee address: ");
             address = scan.nextLine();
@@ -90,7 +88,6 @@ public class Inventory_management_system {
 
     public static String validatePhoneNumber(Scanner scan) {
         String phone;
-        System.out.println("Enter employee phone number");
         boolean validPhone;
         do {
             System.out.print("Enter employee phone number: ");
@@ -101,12 +98,19 @@ public class Inventory_management_system {
                 System.out.println("Phone number cannot be empty! Please try again.");
                 validPhone = false;
             } else {
+                
+               
                 for (int i = 0; i < phone.length(); i++) {
                     if (!Character.isDigit(phone.charAt(i))) {
                         System.out.println("Phone number must contain only digits! Please try again.");
                         validPhone = false;
                         break;
                     }
+                
+}
+                if(validPhone && phone.length() != 11){
+                System.out.println("The phone number must be 11 characters long!");
+                validPhone = false;
                 }
             }
 
@@ -136,6 +140,8 @@ public class Inventory_management_system {
             scan.nextLine();
             switch (choice) {
                 case 1: {
+                    System.out.println("\n--- Add New Employee ---");
+                    
                     String id = validateID(scan);
                     String name = validateName(scan);
                     String email = validateEmail(scan);
@@ -147,12 +153,16 @@ public class Inventory_management_system {
                     break;
                 }
                 case 2: {
+                    System.out.println("\n--- Remove Employee ---");
                     String id = validateID(scan);
                     admin.removeEmployee(id);
                     break;
                 }
                 case 3:
-                    System.out.println("The list of employees is: " + admin.getListOfEmployees());
+                    EmployeeUser[] employees = admin.getListOfEmployees();
+                    for (EmployeeUser c : employees) {
+                        System.out.println(c.lineRepresentation());
+                    }
                     break;
                 case 4:
                     admin.logout();
@@ -179,7 +189,6 @@ public class Inventory_management_system {
             switch (subchoice) {
                 case 1: {
                     System.out.println("\n--- Add Product ---");
-                    System.out.println("\n\nAdding new Product:");
 
                     String pid, pname, mname, sname;
                     int pquantity = 0;
@@ -189,7 +198,7 @@ public class Inventory_management_system {
                     pid = validateID(scan);
 
                     do {
-                        System.out.println("Enter product name:");
+                        System.out.print("Enter product name: ");
                         pname = scan.nextLine();
                         if (pname == null || pname.trim().isEmpty())
                             System.out.println("Invalid product name! Please try again.");
@@ -198,7 +207,7 @@ public class Inventory_management_system {
                     } while (true);
 
                     do {
-                        System.out.println("Enter manufacturer name:");
+                        System.out.print("Enter manufacturer name: ");
                         mname = scan.nextLine();
                         if (mname == null || mname.trim().isEmpty())
                             System.out.println("Invalid manufacturer name! Please try again.");
@@ -207,7 +216,7 @@ public class Inventory_management_system {
                     } while (true);
 
                     do {
-                        System.out.println("Enter supplier name:");
+                        System.out.print("Enter supplier name: ");
                         sname = scan.nextLine();
                         if (sname == null || sname.trim().isEmpty())
                             System.out.println("Invalid supplier name! Please try again.");
@@ -218,7 +227,7 @@ public class Inventory_management_system {
                     boolean validQuantity = false;
                     do {
                         try {
-                            System.out.println("Enter quantity:");
+                            System.out.print("Enter quantity: ");
                             pquantity = scan.nextInt();
                             if (pquantity <= 0)
                                 System.out.println("Product quantity must be positive! Please try again.");
@@ -234,7 +243,7 @@ public class Inventory_management_system {
                     boolean validPrice = false;
                     do {
                         try {
-                            System.out.println("Enter price:");
+                            System.out.print("Enter price: ");
                             pprice = scan.nextFloat();
                             if (pprice <= 0)
                                 System.out.println("Product price must be positive! Please try again.");
@@ -250,7 +259,7 @@ public class Inventory_management_system {
                     Product product = new Product(pid, pname, mname, sname, pquantity, pprice);
                     EmployeeRole emp = new EmployeeRole();
                     emp.addProduct(pid, pname, mname, sname, pquantity, pprice);
-//                    System.out.println("\nProduct added successfully!");
+                    System.out.println("\nProduct added successfully!");
                     break;
                 }
 
@@ -276,24 +285,24 @@ public class Inventory_management_system {
                 case 4: {
                     System.out.println("\n--- Purchase Product ---");
                     EmployeeRole emp = new EmployeeRole();
-                    System.out.print("Enter customer SSN: ");
-                    String ssn = scan.nextLine();
+                    
+                    String ssn;
                     boolean validSSN = false;
                     do {
-                        
+                        System.out.print("Enter customer SSN: ");
+                        ssn = scan.nextLine();
                     try{
                         Long.parseLong(ssn);    
                         if(ssn.length()!=14){
                             System.out.println("Invalid SSN: must be 14 digits long");
-                        
-                        return;
+                            
                     }
                        else if(ssn.startsWith("0")){
                             System.out.println("Invalid SSN: cannot start with 0");
-                            return;
+                            
                         }
-                           validSSN = true;
-                        System.out.println("Valid SSN: " + ssn);
+                       else { validSSN = true;
+                        System.out.println("Valid SSN: " + ssn);}
                         }catch(NumberFormatException e){
                             System.out.println("Invalid SSN: must contain digits only ");
                         }
@@ -312,8 +321,9 @@ public class Inventory_management_system {
                     String ssn = scan.nextLine();
                     System.out.print("Enter product ID: ");
                     String prodId = scan.nextLine();
-                    System.out.print("Enter purchase date (YYYY-MM-DD): ");
-                    LocalDate purchaseDate = LocalDate.parse(scan.nextLine());
+                    System.out.print("Enter purchase date (DD-MM-YYYY): ");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    LocalDate purchaseDate = LocalDate.parse(scan.nextLine(),formatter);
                     LocalDate returnDate = LocalDate.now();
                     EmployeeRole emp = new EmployeeRole();
                     emp.returnProduct(ssn, prodId, purchaseDate, returnDate);
@@ -326,8 +336,9 @@ public class Inventory_management_system {
                     String ssn = scan.nextLine();
                     System.out.print("Enter product ID: ");
                     String prodId = scan.nextLine();
-                    System.out.print("Enter purchase date (YYYY-MM-DD): ");
-                    LocalDate purchaseDate = LocalDate.parse(scan.nextLine());
+                    System.out.print("Enter purchase date (DD-MM-YYYY): ");
+                      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    LocalDate purchaseDate = LocalDate.parse(scan.nextLine(),formatter);
                     EmployeeRole emp = new EmployeeRole();
                     emp.applyPayment(ssn, prodId, purchaseDate);
                     break;

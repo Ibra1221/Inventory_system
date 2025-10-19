@@ -5,6 +5,7 @@
 package com.mycompany.inventory_management_system;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -86,7 +87,8 @@ public class EmployeeRole {
         else {
             Product product = productsDatabase.getRecord(productID);
             if(product != null){
-                String key = customerSSN + "," + productID + ',' + purchaseDate.toString();
+                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                String key = customerSSN + "," + productID + "," + purchaseDate.format(formatter);
                 CustomerProduct cProduct = customerProductDatabase.getRecord(key);
                 if (cProduct != null){
                     long daysBetween = java.time.temporal.ChronoUnit.DAYS.between(purchaseDate, returnDate);
@@ -96,7 +98,7 @@ public class EmployeeRole {
                     }
                     else {
                         product.setQuantity(product.getQuantity() + 1);
-                        String recordKey = customerSSN + "," + productID + ',' + purchaseDate.toString();
+                        String recordKey = customerSSN + "," + productID + ',' + purchaseDate.format(formatter);
                         customerProductDatabase.deleteRecord(recordKey);
                         customerProductDatabase.saveToFile();
                         productsDatabase.saveToFile();
@@ -117,7 +119,8 @@ public class EmployeeRole {
         }
     }
     public boolean applyPayment(String customerSSN, String productID, LocalDate purchaseDate){
-        String recordKey = customerSSN + "," + productID + ',' + purchaseDate.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String recordKey = customerSSN + "," + productID + ',' + purchaseDate.format(formatter);
         CustomerProduct cProduct = customerProductDatabase.getRecord(recordKey);
         if(cProduct != null){
             if (!cProduct.isPaid()){
