@@ -59,19 +59,20 @@ public class CustomerProduct implements Info {
         return customerSSN + "," + productID + "," + purchaseDate.format(formatter);
     }
     public void setCustomerSSN(String customerSSN){
+        try{
+        Long.parseLong(customerSSN);    
         if(customerSSN.length()!=14){
-            System.out.println("Incomplete SSN");
+            System.out.println("Invalid SSN: must be 14 digits long");
         return;
     }
        else if(customerSSN.startsWith("0")){
-            System.out.println("Invalid SSN");
+            System.out.println("Invalid SSN: cannot start with 0");
             return;
         }
-       else if(customerSSN.matches(".*[a-zA-Z].*")){
-            System.out.println("Invalid SSN");
-            return;
-        } else {
             this.customerSSN=customerSSN;
+        System.out.println("Valid SSN: " + customerSSN);
+        }catch(NumberFormatException e){
+            System.out.println("Invalid SSN: must contain digits only ");
         }
 }
     public void setProductID(String productID){
