@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author YoussefHisham
  */
+
 public class CustomerProduct implements Info {
 
     private String customerSSN;
@@ -20,9 +21,9 @@ public class CustomerProduct implements Info {
     private boolean paid;
 
     public CustomerProduct(String customerSSN, String productID, LocalDate purchaseDate) {
-        this.customerSSN = customerSSN;
-        this.productID = productID;
-        this.purchaseDate = purchaseDate;
+        setCustomerSSN(customerSSN);
+        setProductID(productID);
+        setPurchaseDate(purchaseDate);
         this.paid = false;
     }
 
@@ -57,4 +58,40 @@ public class CustomerProduct implements Info {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return customerSSN + "," + productID + "," + purchaseDate.format(formatter);
     }
+    public void setCustomerSSN(String customerSSN){
+        if(customerSSN.length()!=14){
+            System.out.println("Incomplete SSN");
+        return;
+    }
+       else if(customerSSN.startsWith("0")){
+            System.out.println("Invalid SSN");
+            return;
+        }
+       else if(customerSSN.matches(".*[a-zA-Z].*")){
+            System.out.println("Invalid SSN");
+            return;
+        } else {
+            this.customerSSN=customerSSN;
+        }
 }
+    public void setProductID(String productID){
+        this.productID=productID;
+    }
+    public void setPurchaseDate(LocalDate purchaseDate){
+         if(purchaseDate == null){
+            System.out.println("Error: Purchase date cannot be null.");
+            return;
+        }
+         else if(purchaseDate.isAfter(LocalDate.now())){
+            System.out.println("Error: Purchase date cannot be in future.");
+            return;}
+        else if(purchaseDate.isBefore(LocalDate.of(2000, 1, 1))){
+            System.out.println("Warning: Purchase date seems too old.set to default date(01-01-2000)");
+            return;
+        }
+        else{
+            this.purchaseDate=purchaseDate;
+        }
+    }
+        
+    }
