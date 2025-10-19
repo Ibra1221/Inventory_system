@@ -18,12 +18,12 @@ public class Product implements Info {
     private float price;
 
     public Product(String productID, String productName, String manufacturerName, String supplierName, int quantity, float price) {
-        this.productID = productID;
-        this.productName = productName;
-        this.manufacturerName = manufacturerName;
-        this.supplierName = supplierName;
-        this.quantity = quantity;
-        this.price = price;
+        setProductId(productID);
+        setProductName(productName);
+        setManufacturerName(manufacturerName);
+        setSupplierName(supplierName);
+        setQuantity(quantity);
+        setPrice(price);
     }
 
     public int getQuantity() {
@@ -67,5 +67,43 @@ public class Product implements Info {
     public float getPrice() {
         return price;
     }
+    public  void setPrice(float price){
+        if(price<0){
+            System.out.println("Invalid price");
+        }
+        else{
+            this.price=price;
+        }
+    }
+    public void setProductId(String productId){
+        this.productID=productId;
+    }
+    public void setProductName(String productName){
+        if(productName== null || productName.trim().isEmpty()){
+            System.out.println("Invalid productName");
+        }
+        else{
+            this.productName=productName;
+        }
+    }
+    public void setManufacturerName(String manufacturerName){
+        if(manufacturerName== null || manufacturerName.trim().isEmpty()){
+            System.out.println("Invalid manufacturerName");
+        }
+        else{
+            this.manufacturerName=manufacturerName;
+        }
+    }
+    public void setSupplierName(String SupplierName){
+        if(SupplierName== null || SupplierName.trim().isEmpty()){
+            System.out.println("Invalid SupplierName");
+        }
+        else{
+            this.supplierName=supplierName;
+        }
+    }
+    
+    
+    
 
 }
