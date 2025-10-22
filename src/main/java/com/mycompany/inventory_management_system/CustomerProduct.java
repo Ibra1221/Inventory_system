@@ -76,8 +76,10 @@ public class CustomerProduct implements Info {
         }
 }
     public void setProductID(String productID){
-        this.productID=productID;
-    }
+             
+        this.productID = productID;
+    }    
+    
     public void setPurchaseDate(LocalDate purchaseDate){
          if(purchaseDate == null){
             System.out.println("Error: Purchase date cannot be null.");

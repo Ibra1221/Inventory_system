@@ -7,7 +7,6 @@ package com.mycompany.inventory_management_system;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
 /**
  *
  * @author Mohamed Walaa
